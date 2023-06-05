@@ -1,13 +1,8 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-const PersonForm = () => {
-    // const [ message, setMessage ] = useState('Loading...')
-    // useEffect(() => {
-    //     axios.get('http://localhost:8000/api')
-    //         .then(res => setMessage(res.data.message))
-    //         .catch(err => console.log(err))
-    // }, [])
-    // keep track of what is being typed via useState hook
+const PersonForm = (props) => {
+    const {people, setPeople} = props
+
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
 
@@ -23,6 +18,9 @@ const PersonForm = () => {
             .then(res => {
                 console.log(res)
                 console.log(res.data)
+                setPeople([...people, res.data])
+                setFirstName("")
+                setLastName("")
             })
             .catch(err => console.log(err))
     }
@@ -30,11 +28,11 @@ const PersonForm = () => {
         <form onSubmit={ onSubmitHandler }>
             <p>
                 <label htmlFor="firstName">First Name</label>
-                <input type="text" id="firstName" onChange = { (e) => setFirstName(e.target.value)}/>
+                <input type="text" id="firstName" onChange = { (e) => setFirstName(e.target.value)} value={firstName}/>
             </p>
             <p>
                 <label htmlFor="lastName">Last Name</label>
-                <input type="text" id="lastName" onChange = { (e) => setLastName(e.target.value) }/>
+                <input type="text" id="lastName" onChange = { (e) => setLastName(e.target.value) } value={lastName}/>
             </p>
             <input type="submit" />
         </form>

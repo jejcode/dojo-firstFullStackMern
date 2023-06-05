@@ -1,11 +1,18 @@
 import './App.css';
 import React from 'react';
-import PersonForm from './components/PersonForm';
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import Main from './views/Main'
+// import PersonForm from './components/PersonForm';
 
 function App() {
   return (
-    <div className="App">
-      <PersonForm />
+    <div>
+      <BrowserRouter>
+        <Routes>
+          {/* adding default below makes this path the default path */}
+          <Route element={<Main />}  path="/home" default />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
