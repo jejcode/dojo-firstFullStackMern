@@ -1,28 +1,15 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 const PersonForm = (props) => {
-    const {people, setPeople} = props
+    const {initalFirstName, initialLastName, onSubmitProp} = props
 
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
+    const [firstName, setFirstName] = useState(initalFirstName)
+    const [lastName, setLastName] = useState(initialLastName)
 
     // handle the submmited form
     const onSubmitHandler = (e) => {
         // prevent default behavior
         e.preventDefault()
-        // make post request to create a new person
-        axios.post('http://localhost:8000/api/people', {
-            firstName,  // no need to type firstname: firstname
-            lastName
-        })
-            .then(res => {
-                console.log(res)
-                console.log(res.data)
-                setPeople([...people, res.data])
-                setFirstName("")
-                setLastName("")
-            })
-            .catch(err => console.log(err))
+        onSubmitProp({firstName, lastName})
     }
     return (
         <form onSubmit={ onSubmitHandler }>
